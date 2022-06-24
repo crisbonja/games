@@ -1,19 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AppHeader v-if="isVisible" />
+    <LoginTemplate 
+      @onLoadProfile="showApp"  
+      v-if="isVisibleLogin"
+      />
+    <router-view  v-if="isVisible" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from '@/components/AppHeader.vue';
+import LoginTemplate from '@/components/layout/login/index.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    AppHeader,
+    LoginTemplate,
+  },
+  data() {
+    return {
+      isVisible: false,
+      isVisibleLogin: true,
+    }
+  },
+  methods: {
+    showApp() {
+      console.log('chamei');
+      this.isVisible = true;
+      this.isVisibleLogin = false;
+    }
+  },
+};
 </script>
 
 <style>
@@ -21,8 +40,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
